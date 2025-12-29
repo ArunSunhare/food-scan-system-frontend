@@ -91,7 +91,7 @@ const Admin = () => {
   const [operatorForm, setOperatorForm] = useState({ username: '', password: '', role: 'operator' });
 
   // Base API URL
-  const API_BASE = 'http://localhost:5001';
+  const API_BASE = 'http://192.168.1.15:5001';
 
   // Fetch Stats
   const fetchStats = useCallback(async () => {
@@ -485,6 +485,12 @@ const Admin = () => {
                   <small className="stat-desc">Ready for use</small>
                 </div>
                 <div className="stat-card">
+                  <div className="stat-icon">☑️</div>
+                  <h3 className="stat-value">{renderStatValue('today_qr_used')}</h3>
+                  <p className="stat-title">Used Qr</p>
+                  <small className="stat-desc">Redeemed QRs</small>
+                </div>
+                <div className="stat-card">
                   <div className="stat-icon">❌</div>
                   <h3 className="stat-value">{renderStatValue('expired_qrs_today')}</h3>
                   <p className="stat-title">Expired QRs Today</p>
@@ -823,19 +829,19 @@ const Admin = () => {
               <form onSubmit={(e) => { e.preventDefault(); updateSettings(settingsForm); }}>
                 <div className="form-group">
                   <label>QR Generation Start Time (HH:MM:SS)</label>
-                  <input type="time" value={settingsForm.qr_generation_start_time} onChange={(e) => setSettingsForm({...settingsForm, qr_generation_start_time: e.target.value + ':00'})} required />
+                  <input type="time" value={settingsForm.qr_generation_start_time} onChange={(e) => setSettingsForm({ ...settingsForm, qr_generation_start_time: e.target.value + ':00' })} required />
                 </div>
                 <div className="form-group">
                   <label>QR Generation End Time (HH:MM:SS)</label>
-                  <input type="time" value={settingsForm.qr_generation_end_time} onChange={(e) => setSettingsForm({...settingsForm, qr_generation_end_time: e.target.value + ':00'})} required />
+                  <input type="time" value={settingsForm.qr_generation_end_time} onChange={(e) => setSettingsForm({ ...settingsForm, qr_generation_end_time: e.target.value + ':00' })} required />
                 </div>
                 <div className="form-group">
                   <label>QR Validity (hours)</label>
-                  <input type="number" value={settingsForm.qr_validity_hours} onChange={(e) => setSettingsForm({...settingsForm, qr_validity_hours: e.target.value})} required min="1" />
+                  <input type="number" value={settingsForm.qr_validity_hours} onChange={(e) => setSettingsForm({ ...settingsForm, qr_validity_hours: e.target.value })} required min="1" />
                 </div>
                 <div className="form-group">
                   <label>Machine Enabled</label>
-                  <select value={settingsForm.machine_enabled} onChange={(e) => setSettingsForm({...settingsForm, machine_enabled: e.target.value === 'true'})}>
+                  <select value={settingsForm.machine_enabled} onChange={(e) => setSettingsForm({ ...settingsForm, machine_enabled: e.target.value === 'true' })}>
                     <option value={true}>Yes</option>
                     <option value={false}>No</option>
                   </select>
@@ -864,15 +870,15 @@ const Admin = () => {
               <form onSubmit={(e) => { e.preventDefault(); createOperator(operatorForm); }}>
                 <div className="form-group">
                   <label>Username</label>
-                  <input type="text" value={operatorForm.username} onChange={(e) => setOperatorForm({...operatorForm, username: e.target.value})} required />
+                  <input type="text" value={operatorForm.username} onChange={(e) => setOperatorForm({ ...operatorForm, username: e.target.value })} required />
                 </div>
                 <div className="form-group">
                   <label>Password</label>
-                  <input type="password" value={operatorForm.password} onChange={(e) => setOperatorForm({...operatorForm, password: e.target.value})} required minLength="6" />
+                  <input type="password" value={operatorForm.password} onChange={(e) => setOperatorForm({ ...operatorForm, password: e.target.value })} required minLength="6" />
                 </div>
                 <div className="form-group">
                   <label>Role</label>
-                  <select value={operatorForm.role} onChange={(e) => setOperatorForm({...operatorForm, role: e.target.value})} disabled>
+                  <select value={operatorForm.role} onChange={(e) => setOperatorForm({ ...operatorForm, role: e.target.value })} disabled>
                     <option value="operator">Operator</option>
                   </select>
                 </div>
