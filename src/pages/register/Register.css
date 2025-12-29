@@ -1,0 +1,50 @@
+/* 🌄 Full Page Hospital Background */
+.login-bg {
+  min-height: 100vh;
+  /* background-image: url('/images/hospital-bg.jpg'); apni image */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🔔 Disclaimer Bar */
+.disclaimer-wrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* 🔁 Moving Text */
+.disclaimer-text {
+  white-space: nowrap;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 0;
+  display: inline-block;
+  animation: slideText 15s linear infinite;
+}
+
+@keyframes slideText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* 🧾 Login Card */
+.page-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 80px;
+}

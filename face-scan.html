@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Face Scan QR</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f2f2f2;
+    }
+    video {
+      width: 320px;
+      border: 2px solid #000;
+      border-radius: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    img {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🍽️ Face Scan QR</h2>
+
+  <video id="video" autoplay></video>
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <br>
+  <button onclick="scanFace()">Scan Face</button>
+
+  <p id="status"></p>
+  <div id="result"></div>
+
+<script>
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("canvas");
+  const statusEl = document.getElementById("status");
+  const resultEl = document.getElementById("result");
+
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => video.srcObject = stream)
+    .catch(() => alert("Camera access denied"));
+
+  function scanFace() {
+    statusEl.innerText = "Scanning...";
+    resultEl.innerHTML = "";
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d").drawImage(video, 0, 0);
+
+    canvas.toBlob(async (blob) => {
+      const formData = new FormData();
+      formData.append("face_image", blob, "face.jpg");
+
+      try {
+        const res = await fetch("http://localhost:5001/api/qr/generate", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          statusEl.innerText = "✅ QR Generated";
+          resultEl.innerHTML = `
+            <img src="${data.data.qr_image}" />
+            <p><b>${data.data.user.name}</b></p>
+            <p>${data.data.user.mobile}</p>
+          `;
+        } else {
+          statusEl.innerText = data.message;
+        }
+      } catch {
+        statusEl.innerText = "❌ Face not recognized";
+      }
+    }, "image/jpeg");
+  }
+</script>
+
+</body>
+</html>
