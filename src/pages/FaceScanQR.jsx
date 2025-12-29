@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
+import "./FaceScanQR.css";
 
 const API_URL = "http://192.168.1.15:5001/api/qr/generate";
 
@@ -35,14 +36,32 @@ const FaceScanQR = () => {
   };
 
   // 📸 Capture + API Call
-  const scanFace = async () => {
-    setLoading(true);
-    setStatus("Scanning face...");
+  // 🔄 Auto-Scan Logic
+  useEffect(() => {
+    let interval;
+    if (!qrImage && !loading && status !== "✅ QR Generated") {
+      interval = setInterval(() => {
+        scanFace();
+      }, 3000); // Scan every 3 seconds
+    }
+    return () => clearInterval(interval);
+  }, [qrImage, loading, status]);
+
+  const resetScan = () => {
     setQrImage(null);
     setUser(null);
+    setStatus("Idle");
+  };
+
+  const scanFace = async () => {
+    if (loading || qrImage) return; // Prevent multiple calls
+    setLoading(true);
+    setStatus("Scanning face...");
 
     const video = videoRef.current;
     const canvas = canvasRef.current;
+
+    if (!video || !canvas) return;
 
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -51,6 +70,10 @@ const FaceScanQR = () => {
     ctx.drawImage(video, 0, 0);
 
     canvas.toBlob(async (blob) => {
+      if (!blob) {
+        setLoading(false);
+        return;
+      }
       const formData = new FormData();
       formData.append("face_image", blob, "face.jpg");
 
@@ -64,65 +87,60 @@ const FaceScanQR = () => {
           setUser(res.data.data.user);
           setStatus("✅ QR Generated");
         } else {
-          setStatus(res.data.message || "❌ Failed");
+          console.log("❌ API Error Response:", res.data); // Debugging
+          setStatus(res.data.message || "❌ Face not recognized");
         }
       } catch (err) {
+        console.error("❌ API Request Failed:", err.response ? err.response.data : err.message); // Debugging
         setStatus(err.response?.data?.message || "❌ Face not recognized");
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     }, "image/jpeg");
   };
 
+  const getStatusClass = () => {
+    if (status === "✅ QR Generated") return "success";
+    if (status.includes("❌")) return "error";
+    if (status === "Scanning face...") return "scanning";
+    return "";
+  };
+
   return (
-    <div style={styles.container}>
-      <h2>🍽️ Food Face Scan</h2>
+    <div className="face-scan-container">
+      <div className="scanner-card">
+        <h2 className="scanner-title">🍽️ Food Face Scan</h2>
 
-      <video ref={videoRef} autoPlay style={styles.video} />
-      <canvas ref={canvasRef} style={{ display: "none" }} />
-
-      <button onClick={scanFace} disabled={loading} style={styles.button}>
-        {loading ? "Scanning..." : "Scan Face"}
-      </button>
-
-      <p>{status}</p>
-
-      {qrImage && (
-        <div style={styles.qrBox}>
-          <img src={qrImage} alt="QR" />
-          <p><b>Name:</b> {user.name}</p>
-          <p><b>Mobile:</b> {user.mobile}</p>
-          <p><b>Role:</b> {user.role}</p>
-        </div>
-      )}
+        {!qrImage ? (
+          <>
+            <div className="video-wrapper">
+              <video ref={videoRef} autoPlay className="video-feed" />
+              {loading && <div className="scanning-overlay"></div>}
+            </div>
+            <canvas ref={canvasRef} style={{ display: "none" }} />
+            <div className={`status-badge ${getStatusClass()}`}>
+              {status}
+            </div>
+          </>
+        ) : (
+          <div className="result-card">
+            <div className={`status-badge ${getStatusClass()}`}>
+              {status}
+            </div>
+            <img src={qrImage} alt="QR Code" className="qr-image" />
+            <div className="user-details">
+              <p><b>Name:</b> {user.name}</p>
+              <p><b>Mobile:</b> {user.mobile}</p>
+              <p><b>Role:</b> {user.role}</p>
+            </div>
+            <button onClick={resetScan} className="scan-again-btn">
+              Scan Again
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    textAlign: "center",
-    padding: 20,
-    background: "#f4f6f8",
-    height: "100vh"
-  },
-  video: {
-    width: 320,
-    borderRadius: 10,
-    border: "2px solid #333"
-  },
-  button: {
-    marginTop: 15,
-    padding: "10px 20px",
-    fontSize: 16,
-    cursor: "pointer"
-  },
-  qrBox: {
-    marginTop: 20,
-    background: "#fff",
-    padding: 15,
-    borderRadius: 10
-  }
 };
 
 export default FaceScanQR;
