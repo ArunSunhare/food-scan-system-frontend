@@ -1,17 +1,25 @@
 .face-scan-container {
+  position: fixed;
+  /* Break out of .App container constraints */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  /* Ensure it's on top */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
   /* Premium Tech/AI Background */
   background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
   color: white;
+  overflow-y: auto;
+  /* Allow scrolling if content is too tall */
 }
 
 .scanner-card {
