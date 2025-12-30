@@ -91,7 +91,7 @@ const Admin = () => {
   const [operatorForm, setOperatorForm] = useState({ username: '', password: '', role: 'operator' });
 
   // Base API URL
-  const API_BASE = 'http://192.168.1.15:5001';
+  const API_BASE = 'http://192.168.1.26:5001';
 
   // Fetch Stats
   const fetchStats = useCallback(async () => {

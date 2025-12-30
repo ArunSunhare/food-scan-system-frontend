@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import "./FaceScanQR.css";
 
-const API_URL = "http://192.168.1.15:5001/api/qr/generate";
+const API_URL = "http://192.168.1.26:5001/api/qr/generate";
 
 const FaceScanQR = () => {
   const videoRef = useRef(null);
