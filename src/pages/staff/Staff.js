@@ -188,6 +188,7 @@ const Staff = () => {
         }}
       />
       <div className="page-container">
+
         <h1 className="page-title">Staff Information</h1>
         <p className="page-subtitle">Please provide your staff details</p>
 
@@ -361,6 +362,9 @@ const Staff = () => {
             </button>
             <button type="button" className="btn btn-secondary" onClick={resetForm} disabled={loading}>
               Clear
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)} disabled={loading}>
+              Back
             </button>
           </div>
         </form>
