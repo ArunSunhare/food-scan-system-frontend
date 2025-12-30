@@ -4,47 +4,63 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Premium Tech/AI Background */
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
   color: white;
 }
 
 .scanner-card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 40px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
-  max-width: 400px;
-  width: 100%;
+  /* max-width: 400px; Remove old fixed width */
+  width: 50vw;
+  /* 50% of viewport width */
+  min-width: 320px;
+  max-width: 800px;
   animation: fadeIn 0.5s ease-out;
+}
+
+@media (max-width: 768px) {
+  .scanner-card {
+    width: 90%;
+  }
 }
 
 .scanner-title {
   font-size: 28px;
   margin-bottom: 20px;
   font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .video-wrapper {
   position: relative;
   width: 100%;
-  max-width: 320px;
+  width: 100%;
+  /* max-width: 320px; Allow it to fill the card */
   margin: 0 auto 20px;
   border-radius: 15px;
   overflow: hidden;
   border: 4px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .video-feed {
   width: 100%;
   display: block;
-  border-radius: 11px; /* inner radius */
+  border-radius: 11px;
+  /* inner radius */
 }
 
 .scanning-overlay {
@@ -94,7 +110,7 @@
   padding: 24px;
   color: #333;
   margin-top: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transform: translateY(10px);
   animation: slideUp 0.4s ease-out forwards;
 }
@@ -140,15 +156,30 @@
 }
 
 @keyframes scan {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 0% 200%; }
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 0% 200%;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes slideUp {
-  to { transform: translateY(0); opacity: 1; }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
