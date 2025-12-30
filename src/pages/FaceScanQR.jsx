@@ -56,7 +56,7 @@ const FaceScanQR = () => {
     let animationFrameId;
     let lastScanTime = 0;
     let firstDetectionTime = 0; // Track when face was first seen
-    const SCAN_COOLDOWN = 1000; // 1 second cooldown between API calls
+    const SCAN_COOLDOWN = 3000; // 3 seconds cooldown between API calls
     const DETECTION_STABILITY_DELAY = 1000; // Face must be stable for 1 second
 
     const detectFaces = async () => {
