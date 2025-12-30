@@ -37,7 +37,7 @@ const Guest = () => {
   useEffect(() => {
     if (isCameraOpen && streamRef.current && videoRef.current) {
       videoRef.current.srcObject = streamRef.current;
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch(() => { });
     }
   }, [isCameraOpen]);
 
@@ -178,199 +178,199 @@ const Guest = () => {
   /* ================= UI ================= */
 
   return (
-    <div className="page-container">
-      <h1 className="page-title">Guest Information</h1>
-      <p className="page-subtitle">Please provide your guest details</p>
+    <>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          zIndex: -1
+        }}
+      />
+      <div className="page-container">
+        <h1 className="page-title">Guest Information</h1>
+        <p className="page-subtitle">Please provide your guest details</p>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group" style={{ marginBottom: "12px" }}>
-          <label className="form-label">Guest Type</label>
-          <select
-            name="guestType"
-            className="form-input"
-            value={formData.guestType}
-            onChange={handleChange}
-            disabled={loading}
-          >
-            <option value="">Select Guest Type</option>
-            <option value="attendee">Attendant</option>
-            <option value="visitor">Other</option>
-          </select>
-          {errors.guestType && <div className="error-message">{errors.guestType}</div>}
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group" style={{ marginBottom: "12px" }}>
+            <label className="form-label">Guest Type</label>
+            <select
+              name="guestType"
+              className="form-input"
+              value={formData.guestType}
+              onChange={handleChange}
+              disabled={loading}
+            >
+              <option value="">Select Guest Type</option>
+              <option value="attendee">Attendant</option>
+              <option value="visitor">Other</option>
+            </select>
+            {errors.guestType && <div className="error-message">{errors.guestType}</div>}
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "12px" }}>
-          <label className="form-label">Full Name</label>
-          <input
-            type="text"
-            name="attendantName"
-            className="form-input"
-            value={formData.attendantName}
-            onChange={handleChange}
-            placeholder="Enter full name"
-            disabled={loading}
-          />
-          {errors.attendantName && <div className="error-message">{errors.attendantName}</div>}
-        </div>
+          <div className="form-group" style={{ marginBottom: "12px" }}>
+            <label className="form-label">Full Name</label>
+            <input
+              type="text"
+              name="attendantName"
+              className="form-input"
+              value={formData.attendantName}
+              onChange={handleChange}
+              placeholder="Enter full name"
+              disabled={loading}
+            />
+            {errors.attendantName && <div className="error-message">{errors.attendantName}</div>}
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "12px" }}>
-          <label className="form-label">Phone Number</label>
-          <input
-            type="tel"
-            name="phoneNumber"
-            className="form-input"
-            value={formData.phoneNumber}
-            onChange={handlePhoneChange}
-            placeholder="Enter 10 digit phone number"
-            maxLength={10}
-            disabled={loading}
-          />
-          {errors.phoneNumber && (
-            <div className="error-message">{errors.phoneNumber}</div>
-          )}
-        </div>
+          <div className="form-group" style={{ marginBottom: "12px" }}>
+            <label className="form-label">Phone Number</label>
+            <input
+              type="tel"
+              name="phoneNumber"
+              className="form-input"
+              value={formData.phoneNumber}
+              onChange={handlePhoneChange}
+              placeholder="Enter 10 digit phone number"
+              maxLength={10}
+              disabled={loading}
+            />
+            {errors.phoneNumber && (
+              <div className="error-message">{errors.phoneNumber}</div>
+            )}
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "12px" }}>
-          <label className="form-label">Email Id</label>
-          <input
-            type="email"
-            name="email"
-            className="form-input"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter email id"
-            disabled={loading}
-          />
-          {errors.email && <div className="error-message">{errors.email}</div>}
-        </div>
+          <div className="form-group" style={{ marginBottom: "12px" }}>
+            <label className="form-label">Email Id</label>
+            <input
+              type="email"
+              name="email"
+              className="form-input"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter email id"
+              disabled={loading}
+            />
+            {errors.email && <div className="error-message">{errors.email}</div>}
+          </div>
 
-        <div className="form-group" style={{ marginBottom: "12px" }}>
-          <label className="form-label">Photo</label>
-          {photoPreview && (
-            <div style={{ marginBottom: "10px" }}>
-              <img
-                src={photoPreview}
-                alt="Guest preview"
+          <div className="form-group" style={{ marginBottom: "12px" }}>
+            <label className="form-label">Photo</label>
+            {photoPreview && (
+              <div style={{ marginBottom: "10px" }}>
+                <img
+                  src={photoPreview}
+                  alt="Guest preview"
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    border: "1px solid #ddd",
+                    display: "block",
+                    margin: "0 auto",
+                  }}
+                />
+                <p
+                  style={{
+                    textAlign: "center",
+                    fontSize: "0.8em",
+                    color: "#666",
+                    marginTop: "5px",
+                  }}
+                >
+                  Photo preview
+                </p>
+              </div>
+            )}
+            {errors.photo && <div className="error-message">{errors.photo}</div>}
+          </div>
+
+          {isCameraOpen ? (
+            <div className="form-group" style={{ marginBottom: "12px" }}>
+              <label className="form-label">Camera Preview</label>
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
                 style={{
-                  width: "150px",
-                  height: "150px",
-                  objectFit: "cover",
+                  width: "100%",
+                  maxWidth: "250px",
+                  height: "auto",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
                   display: "block",
-                  margin: "0 auto",
+                  margin: "0 auto 10px",
                 }}
               />
-              <p
+              <div
                 style={{
-                  textAlign: "center",
-                  fontSize: "0.8em",
-                  color: "#666",
-                  marginTop: "5px",
+                  display: "flex",
+                  gap: "8px",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
                 }}
               >
-                Photo preview
-              </p>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={capturePhoto}
+                  disabled={loading}
+                >
+                  Capture Photo
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={stopCamera}
+                  disabled={loading}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="form-group" style={{ marginBottom: "12px" }}>
+              <label className="form-label">Add Photo</label>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                  marginTop: "8px",
+                }}
+              >
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={startCamera}
+                  disabled={loading}
+                >
+                  Capture Image
+                </button>
+              </div>
+              {cameraError && <div className="error-message">{cameraError}</div>}
             </div>
           )}
-          {errors.photo && <div className="error-message">{errors.photo}</div>}
-        </div>
 
-        {isCameraOpen ? (
-          <div className="form-group" style={{ marginBottom: "12px" }}>
-            <label className="form-label">Camera Preview</label>
-            <video
-              ref={videoRef}
-              autoPlay
-              muted
-              style={{
-                width: "100%",
-                maxWidth: "250px",
-                height: "auto",
-                borderRadius: "8px",
-                border: "1px solid #ddd",
-                display: "block",
-                margin: "0 auto 10px",
-              }}
-            />
-            <div
-              style={{
-                display: "flex",
-                gap: "8px",
-                justifyContent: "center",
-                flexWrap: "wrap",
-              }}
-            >
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={capturePhoto}
-                disabled={loading}
-              >
-                Capture Photo
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={stopCamera}
-                disabled={loading}
-              >
-                Cancel
-              </button>
-            </div>
+          {apiError && <div className="error-message">{apiError}</div>}
+
+          <div style={{ textAlign: "center", marginTop: "15px", display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? "Submitting..." : "Submit"}
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={resetForm} disabled={loading}>
+              Clear
+            </button>
           </div>
-        ) : (
-          <div className="form-group" style={{ marginBottom: "12px" }}>
-            <label className="form-label">Add Photo</label>
-            <div
-              style={{
-                display: "flex",
-                gap: "8px",
-                justifyContent: "center",
-                flexWrap: "wrap",
-                marginTop: "8px",
-              }}
-            >
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={startCamera}
-                disabled={loading}
-              >
-                📷 Open Camera
-              </button>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoChange}
-                style={{ display: "none" }}
-                id="photo-upload"
-                disabled={loading}
-              />
-              <label
-                htmlFor="photo-upload"
-                className="btn btn-secondary"
-                disabled={loading}
-              >
-                📁 Upload Photo
-              </label>
-            </div>
-            {cameraError && <div className="error-message">{cameraError}</div>}
-          </div>
-        )}
-
-        {apiError && <div className="error-message">{apiError}</div>}
-
-        <div style={{ textAlign: "center", marginTop: "15px", display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? "Submitting..." : "Submit"}
-          </button>
-          <button type="button" className="btn btn-secondary" onClick={resetForm} disabled={loading}>
-            Clear
-          </button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 };
 

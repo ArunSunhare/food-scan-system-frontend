@@ -55,7 +55,7 @@ const Register = () => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('role', res.data.admin.role);
         localStorage.setItem('username', res.data.admin.username);
-        
+
         // Yeh line add ki hai – isse Selection page pe redirect nahi hoga wapas register pe
         localStorage.setItem('registered', 'true');
 
@@ -75,60 +75,68 @@ const Register = () => {
   };
 
   return (
-    <div className="page-container">
-      <h1 className="page-title">Operator Login</h1>
-      <p className="page-subtitle">Login to your account</p>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">Username</label>
-          <input
-            type="text"
-            name="username"
-            className="form-input"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Enter username"
-            disabled={loading}
-          />
-          {errors.username && (
-            <div className="error-message">{errors.username}</div>
-          )}
+    <div className="register-page">
+      <div className="disclaimer-bar">
+        <div className="disclaimer-content">
+          🚨 IMPORTANT: Authorized Personnel Only • Ensure Face is clearly visible during scan • Do not share your credentials • System is monitored 24/7 • Please logout after your session 🚨
         </div>
+      </div>
 
-        <div className="form-group">
-          <label className="form-label">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="form-input"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter password"
-            disabled={loading}
-          />
-          {errors.password && (
-            <div className="error-message">{errors.password}</div>
-          )}
-        </div>
+      <div className="page-container glass-effect">
+        <h1 className="page-title">Operator Login</h1>
+        <p className="page-subtitle">Login to your account</p>
 
-        {apiError && <div className="error-message">{apiError}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              className="form-input"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Enter username"
+              disabled={loading}
+            />
+            {errors.username && (
+              <div className="error-message">{errors.username}</div>
+            )}
+          </div>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="form-input"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter password"
+              disabled={loading}
+            />
+            {errors.password && (
+              <div className="error-message">{errors.password}</div>
+            )}
+          </div>
 
-        <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => navigate('/admin/login')}
-            disabled={loading}
-          >
-            Admin Login
+          {apiError && <div className="error-message">{apiError}</div>}
+
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
           </button>
-        </div>
-      </form>
+
+          <div style={{ marginTop: '20px', textAlign: 'center' }}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => navigate('/admin/login')}
+              disabled={loading}
+            >
+              Admin Login
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

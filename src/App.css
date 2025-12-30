@@ -800,6 +800,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 4px;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   background: white;
@@ -808,6 +809,215 @@
   cursor: pointer;
   transition: all 0.2s;
 }
+
+/* ================= FACE SCAN QR ================= */
+
+.face-scan-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.scan-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+.scan-card h2 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  color: #333;
+  font-weight: 800;
+}
+
+.scan-card p.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 25px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border: 4px solid #fff;
+  aspect-ratio: 3/4;
+  background: #000;
+}
+
+.video-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  /* Mirror effect */
+  display: block;
+}
+
+/* Scanning Animation */
+.scan-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(102, 126, 234, 0) 0%, rgba(102, 126, 234, 0.5) 50%, rgba(102, 126, 234, 0) 100%);
+  background-size: 100% 200%;
+  animation: scan 2s linear infinite;
+  border-bottom: 2px solid #667eea;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scan-overlay.active {
+  opacity: 1;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Status Messages */
+.status-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 15px 0;
+  background: #f0f0f0;
+  color: #555;
+}
+
+.status-badge.scanning {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.error {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* Scan Button */
+.scan-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+  width: 100%;
+}
+
+.scan-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(118, 75, 162, 0.4);
+}
+
+.scan-btn:active {
+  transform: translateY(0);
+}
+
+.scan-btn:disabled {
+  background: #ccc;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Result Card */
+.qr-result-card {
+  margin-top: 30px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.qr-image {
+  width: 180px;
+  height: 180px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 2px dashed #ddd;
+  padding: 10px;
+}
+
+.user-info {
+  text-align: left;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  color: #666;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #333;
+  font-weight: 700;
+}
+
+
 
 .pagination-number:hover {
   background: #f5f7fa;
@@ -818,10 +1028,10 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
-/* ================= SELECTION PAGE BACKGROUND ================= */
+/* ================= REGISTER PAGE ================= */
 
 /* Use :has selector to style the main App container when Selection page is active */
 .App:has(.selection-view) {
@@ -837,4 +1047,139 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= REGISTER PAGE ================= */
+
+/* ================= REGISTER PAGE ================= */
+
+/* Ensure App container doesn't restrict the full-page background */
+.App:has(.register-page) {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+}
+
+.register-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Background Image */
+  background-image: url('https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* Ensures background stays fixed during scroll */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Dark overlay to ensure text readability if needed, though glass card handles it */
+.register-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* Moving Disclaimer */
+.disclaimer-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(231, 76, 60, 0.9);
+  color: white;
+  padding: 10px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border-bottom: 2px solid #c0392b;
+}
+
+.disclaimer-content {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: scroll-left 20s linear infinite;
+  padding-left: 100%;
+  /* Start from right */
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Glass Effect for Page Container Override */
+.register-page .page-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+/* ================= ADMIN LOGIN PAGE ================= */
+
+/* Ensure App container doesn't restrict the full-page background */
+.App:has(.admin-login-page) {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+}
+
+.admin-login-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Tech/Server Background */
+  background-image: url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Dark overlay for Admin Page */
+.admin-login-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Slightly darker for admin */
+  z-index: 1;
+}
+
+/* Glass Effect for Admin Page Container */
+.admin-login-page .page-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }

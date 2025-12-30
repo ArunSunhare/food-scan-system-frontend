@@ -55,7 +55,7 @@ const AdminLogin = () => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('role', res.data.admin.role);
         localStorage.setItem('username', res.data.admin.username);
-        
+
         // Yeh line add ki hai – isse Selection page pe redirect nahi hoga wapas register pe
         localStorage.setItem('registered', 'true');
 
@@ -75,60 +75,62 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="page-container">
-      <h1 className="page-title">Admin Login</h1>
-      <p className="page-subtitle">Enter your admin credentials</p>
+    <div className="admin-login-page">
+      <div className="page-container glass-effect">
+        <h1 className="page-title">Admin Login</h1>
+        <p className="page-subtitle">Enter your admin credentials</p>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">Username</label>
-          <input
-            type="text"
-            name="username"
-            className="form-input"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Enter username"
-            disabled={loading}
-          />
-          {errors.username && (
-            <div className="error-message">{errors.username}</div>
-          )}
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              className="form-input"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Enter username"
+              disabled={loading}
+            />
+            {errors.username && (
+              <div className="error-message">{errors.username}</div>
+            )}
+          </div>
 
-        <div className="form-group">
-          <label className="form-label">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="form-input"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter password"
-            disabled={loading}
-          />
-          {errors.password && (
-            <div className="error-message">{errors.password}</div>
-          )}
-        </div>
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              className="form-input"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter password"
+              disabled={loading}
+            />
+            {errors.password && (
+              <div className="error-message">{errors.password}</div>
+            )}
+          </div>
 
-        {apiError && <div className="error-message">{apiError}</div>}
+          {apiError && <div className="error-message">{apiError}</div>}
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-
-        <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => navigate('/register')}
-            disabled={loading}
-          >
-            Back to Operator Login
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
           </button>
-        </div>
-      </form>
+
+          <div style={{ marginTop: '20px', textAlign: 'center' }}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => navigate('/register')}
+              disabled={loading}
+            >
+              Back to Operator Login
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
